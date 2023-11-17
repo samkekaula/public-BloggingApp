@@ -12,7 +12,11 @@ export default {
             'transparent': 'transparent',
             'twitter': '#1DA1F2',
             'purple': '#8B46FF',
-             'lemon': "#F2F8F7"
+             'lemon': "#F2F8F7",
+             'blue':"#00AAA1",
+             'lightBlue':"#346D6A",
+             "buttonBlue":"#DFF1F0"
+             
         },
 
         fontSize: {

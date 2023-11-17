@@ -7,7 +7,7 @@
 
 @layer components {
     * {
-        @apply m-0 p-0 box-border text-base outline-purple/30 duration-100;
+        @apply m-0 p-0 box-border text-base outline-lightBlue duration-100;
     }
 
     html{
@@ -47,11 +47,11 @@
     }
 
     .btn-dark{
-        @apply whitespace-nowrap bg-black text-white rounded-full py-3 px-6 text-xl capitalize hover:bg-opacity-80;
+        @apply whitespace-nowrap bg-blue text-white rounded-full py-3 px-6 text-xl capitalize hover:bg-opacity-80;
     }
 
     .btn-light{
-        @apply btn-dark bg-grey text-black;
+        @apply btn-dark bg-lightBlue text-white;
     }
 
     .input-box {
