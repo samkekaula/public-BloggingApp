@@ -1,9 +1,8 @@
-POST http://localhost:5173/signup 
+POST http://localhost:5173/signin
 Content-Type: application/json
 
 {
-    "fullname":"Samkelisiwe Kaula",
-    "email":"dffjfj@gmail.com",
-    "password":"4224r4Sd "
+    "email":"samel@gmail.com",
+    "password":"42244Sd "
     
 }
