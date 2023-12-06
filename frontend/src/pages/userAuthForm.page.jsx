@@ -1,23 +1,29 @@
 import InputBox from "../components/input.component";
 import googleicon from "../imgs/google.png"
 import facebookicon from "../imgs/facebook.png"
-import {Link} from "react-router-dom"
+import {Link, Navigate} from "react-router-dom"
 import AnimationWrapper from "../common/page-animation";
-import { useRef } from "react";
+// import { useRef } from "react";
 import {Toaster, toast} from "react-hot-toast"
 import axios from "axios"
+import { storeInSession } from "../common/session";
+import { UserContext } from "../App";
+import { useContext } from "react";
 
 const UserAuthForm = ({type}) =>{
 
-    const authForm = useRef();
+    let {userAuth:{access_token}, setUserAuth} = useContext(UserContext)
+
 
     const userAuthThroughServer = (serverRoute, formData) =>{
         
-        console.log(import.meta.env.VITE_SERVER_DOMAIN + serverRoute,formData);
+        console.log(serverRoute,formData);
 
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + serverRoute, formData)
+        axios.post(serverRoute, formData)
         .then(({data})=>{
-            console.log(data);
+            storeInSession('user', JSON.stringify(data))
+
+            setUserAuth(data)
         })
         .catch(({response}) =>{
             toast.error(response.data.error)
@@ -37,8 +43,9 @@ const UserAuthForm = ({type}) =>{
         let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/; // regex for password
 
 
+        let formElement = document.getElementById("formElement");
         //formData
-        let form = new FormData(authForm.current);
+        let form = new FormData(formElement);
         let formData = {};
         
         for(let [key, value] of form.entries()){
@@ -71,12 +78,15 @@ const UserAuthForm = ({type}) =>{
 
     }
     return(
+        access_token ? 
+        <Navigate to="/"/>
+        :
 
         <AnimationWrapper keyValue={type}>
 
             <section className="h-cover flex items-center justify-center">
                 <Toaster/>
-                <form ref={authForm} className=" w-[80%] max-w-[400px]">
+                <form id="formElement" className=" w-[80%] max-w-[400px]">
                     <h1 className=" text-4xl font-gelasio capitalize text-center 
                     mb-24">
                     {type =="sign-in" ? "welcome back" : "Join Nexus"}
@@ -158,3 +168,5 @@ const UserAuthForm = ({type}) =>{
 } 
 
 export default UserAuthForm;
+
+

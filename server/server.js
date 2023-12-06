@@ -1,6 +1,6 @@
 import express from "express"
 import mongoose from "mongoose"
-import 'dotenv/config'
+import 'dotenv/config.js'
 import bcrypt from "bcrypt"
 import { nanoid } from "nanoid"
 import jwt from "jsonwebtoken"
@@ -10,7 +10,7 @@ import cors from "cors"
 import User from "./Schema/User.js"
 
 const server = express();
-let PORT = 5173;
+let PORT = 7000;
 
 let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; // regex for email
 let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/; // regex for password
@@ -25,7 +25,7 @@ mongoose.connect(process.env.DB_LOCATION, {
 
 const formatDatatoSend = (user)=>{
 
-    const access_token = jwt.sign({id: user._id}, process.env.SECRETE_ACCESS_KEY)
+    const access_token = jwt.sign({id: user._id}, process.env.SECRET_ACCESS_KEY)
     return{
         access_token,
         profile_img: user.personal_info.profile_img,
