@@ -9,6 +9,7 @@ import axios from "axios"
 import { storeInSession } from "../common/session";
 import { UserContext } from "../App";
 import { useContext } from "react";
+import { authWithGoogle } from "../common/firebase";
 
 const UserAuthForm = ({type}) =>{
 
@@ -75,8 +76,31 @@ const UserAuthForm = ({type}) =>{
         
         //end form validation
         userAuthThroughServer(serverRoute, formData)
+    }
+
+    const handleGoogleAuth = (e) =>{
+
+        e.preventDefault();
+
+        authWithGoogle().then(user =>{
+            
+            let serverRoute = "/google-auth";
+
+            let formData = {
+                access_token: user.accessToken
+            }
+
+            userAuthThroughServer(serverRoute, formData)
+        })
+        .catch(err =>{
+            toast.error('trouble login into google');
+            return console.log(err)
+        })
 
     }
+
+  
+
     return(
         access_token ? 
         <Navigate to="/"/>
@@ -133,16 +157,15 @@ const UserAuthForm = ({type}) =>{
                     
                             <button className="btn-dark flex gap-4 items-center justify-center bg-buttonBlue border-black border-[1px]
                             w-[90%] center text-black
-                            center">
-                                <img src={googleicon} className="w-5 "  />
+                            center"
+                            onClick={handleGoogleAuth}
+                             
+                             >
+                                <img src={googleicon} className="w-5 "
+                                 />
                                 continue with google
                             </button>
-                            <button className="btn-dark flex gap-4 items-center justify-center border-black border-[1px]
-                            w-[90%] center text-black mt-5 bg-buttonBlue">
-                                <img src={facebookicon} className="w-5 "  />
-                                continue with facebook
-                            </button>
-
+                        
                             {
                                 type == "sign-in" ?
                                 <p className=" mt-6 text-dark-grey text-xl text-center">
