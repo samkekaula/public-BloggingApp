@@ -108,6 +108,12 @@ server.post("/signin", (req, res) =>{
         if(!user){
             return res.status(403).json({"error": "Email not found"});
         }
+
+        if(!user.google_auth){
+
+        
+
+
         bcrypt.compare(password, user.personal_info.password, (err,result) =>{
 
             if(err){
@@ -120,6 +126,12 @@ server.post("/signin", (req, res) =>{
                 return res.status(200).json(formatDatatoSend(user))
             }
         })
+    }
+    
+    else{
+            return res.status(403).json({"error": "Account was created with google. Try logging in with google"})
+        }
+        
 
     })
     .catch(err => {
