@@ -4,6 +4,7 @@ import UserAuthForm from "./pages/userAuthForm.page";
 import axios from 'axios'
 import { createContext, useState, useEffect } from "react";
 import { lookInSession } from "./common/session";
+import Editor from "./pages/editor.pages";
 
 
 axios.defaults.baseURL = 'http://localhost:7000'
@@ -30,6 +31,7 @@ const App = () => {
         <UserContext.Provider value={{userAuth, setUserAuth}}>
 
         <Routes>
+            <Route path="/editor" element={<Editor/>}/>
             <Route path="/" element={<NavBar/>}>
                 <Route path="/signin" element={<UserAuthForm type="sign-in"/>}/>
                 <Route path="/signup" element={<UserAuthForm type="sign-up"/>}/>
