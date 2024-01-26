@@ -1,4 +1,4 @@
-// AuthForm.jsx
+// AuthForm.jsx Authentication
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
